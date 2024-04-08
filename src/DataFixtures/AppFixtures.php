@@ -5,10 +5,16 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Article;
+use App\Entity\User;
 use DateTime;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(
+        public UserPasswordHasherInterface $passwordHasher
+    ) {}
+
     public function load(ObjectManager $manager): void
     {
         // On instancie Faker
@@ -20,9 +26,20 @@ class AppFixtures extends Fixture
         $article->setDescription($faker->sentences(5, true));
         $article->setAuthor($faker->userName);
         $article->setPublishingDate(new DateTime());
+        $article->setPicture($faker->imageUrl(640, 480, 'animals', true));
 
         // On génère le SQL pour insérer les données
         $manager->persist($article);
+        // On exécute la requête
+        $manager->flush();
+
+        // Création d'un nouvel utilisateur
+        $user = new User();
+        $user->setEmail('test@test.com');
+        $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
+
+        // On génère le SQL pour insérer les données
+        $manager->persist($user);
         // On exécute la requête
         $manager->flush();
     }

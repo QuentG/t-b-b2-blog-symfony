@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     // On définit la route pour la méthode index
-    #[Route('/', name: 'app_home')]
+    #[Route('/', 'app_home')]
     // On injecte le répertoire des articles
     public function index(ArticleRepository $articleRepository): Response
     {
@@ -23,9 +23,13 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/test', name: 'app_test')]
-    public function test(): Response
+    #[Route('/article/{id}', 'app_article')]
+    public function article($id, ArticleRepository $articleRepository)
     {
-        return $this->render('home/test.html.twig');
+        $article = $articleRepository->findOneBy(['id' => $id]);
+
+        return $this->render('home/article.html.twig', [
+            'article' => $article
+        ]);
     }
 }
