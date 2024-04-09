@@ -3,7 +3,7 @@
 {% block body %}
     <h1>{{ article.title }}</h1>
     <p>{{ article.description }}</p>
-    <p>{{ article.author }}</p>
+    <p>{{ article.author.email }}</p>
     <p>{{ article.publishingDate|date('d/m/Y H:i:s') }}<p>
     <img src="{{ article.picture }}" />
 {% endblock %}

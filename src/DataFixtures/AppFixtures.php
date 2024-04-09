@@ -20,19 +20,6 @@ class AppFixtures extends Fixture
         // On instancie Faker
         $faker = \Faker\Factory::create('fr_FR');
 
-        // Création d'un nouvel article
-        $article = new Article();
-        $article->setTitle($faker->sentence);
-        $article->setDescription($faker->sentences(5, true));
-        $article->setAuthor($faker->userName);
-        $article->setPublishingDate(new DateTime());
-        $article->setPicture($faker->imageUrl(640, 480, 'animals', true));
-
-        // On génère le SQL pour insérer les données
-        $manager->persist($article);
-        // On exécute la requête
-        $manager->flush();
-
         // Création d'un nouvel utilisateur
         $user = new User();
         $user->setEmail('test@test.com');
@@ -40,6 +27,22 @@ class AppFixtures extends Fixture
 
         // On génère le SQL pour insérer les données
         $manager->persist($user);
+        // On exécute la requête
+        $manager->flush();
+
+        for ($i = 0; $i < 10; $i++) { 
+            // Création d'un nouvel article
+            $article = new Article();
+            $article->setTitle($faker->sentence);
+            $article->setDescription($faker->sentences(5, true));
+            $article->setPublishingDate(new DateTime());
+            $article->setPicture($faker->imageUrl(640, 480, 'animals', true));
+            $article->setAuthor($user);
+
+            // On génère le SQL pour insérer les données
+            $manager->persist($article);
+        }
+
         // On exécute la requête
         $manager->flush();
     }

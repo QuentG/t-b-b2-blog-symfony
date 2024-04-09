@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel article{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+
+        <div class="row">
+            {{ form_row(form.title, {
+                'label': 'Titre de l\'article',
+                'attr': {
+                    'style': 'background-color: #fff;',
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                }
+            }) }}
+        </div>
+
+         <div class="row">
+            {{ form_row(form.description, {
+                'label': 'Description de l\'article',
+                'attr': {
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                }
+            }) }}
+        </div>
+
+        <div class="row">
+            {{ form_row(form.picture, {
+                'label': 'Url de la photo de l\'article',
+                'attr': {
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                }
+            }) }}
+        </div>
+
+        <div class="row">
+            {{ form_row(form.publishingDate, {
+                'label': 'Date de publication',
+            }) }}
+        </div>
+
+        <div class="row">
+            {{ form_row(form.submit, {
+                'label': 'Valider',
+                'attr': {
+                    'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
+                }
+            }) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -21,13 +21,14 @@ class Article
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $author = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $publishingDate = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -58,18 +59,6 @@ class Article
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?string $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -90,6 +79,18 @@ class Article
     public function setPublishingDate(\DateTimeInterface $publishingDate): static
     {
         $this->publishingDate = $publishingDate;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

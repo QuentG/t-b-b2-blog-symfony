@@ -14,12 +14,16 @@ class HomeController extends AbstractController
     // On injecte le répertoire des articles
     public function index(ArticleRepository $articleRepository): Response
     {
-        // On récupère tous les articles
-        $articles = $articleRepository->findAll();
+        // On récupère les 3 derniers articles en fonction de 
+        // leur date de publication.
+        $latestArticles = $articleRepository->findLatest();
+        // On récupère les autres articles.
+        $othersArtucles = $articleRepository->findWithoutThreeLatest();
 
         // On retourne la vue avec les articles
         return $this->render('home/index.html.twig', [
-            'articles' => $articles,
+            'latestArticles' => $latestArticles,
+            'othersArticles' => $othersArtucles
         ]);
     }
 
