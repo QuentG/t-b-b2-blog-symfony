@@ -18,12 +18,11 @@ class HomeController extends AbstractController
         // leur date de publication.
         $latestArticles = $articleRepository->findLatest();
         // On récupère les autres articles.
-        $othersArtucles = $articleRepository->findWithoutThreeLatest();
-
+        $othersArticles = $articleRepository->findWithoutThreeLatest();
         // On retourne la vue avec les articles
         return $this->render('home/index.html.twig', [
             'latestArticles' => $latestArticles,
-            'othersArticles' => $othersArtucles
+            'othersArticles' => $othersArticles
         ]);
     }
 

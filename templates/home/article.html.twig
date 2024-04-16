@@ -2,8 +2,22 @@
 
 {% block body %}
     <h1>{{ article.title }}</h1>
-    <p>{{ article.description }}</p>
+    <p>{{ article.description|raw }}</p>
     <p>{{ article.author.email }}</p>
     <p>{{ article.publishingDate|date('d/m/Y H:i:s') }}<p>
-    <img src="{{ article.picture }}" />
+    <img src="{{ vich_uploader_asset(article) }}" />
+
+    <h3>Commentaires :</h3>
+    {% for comment in article.comments %}
+        <p>Contenu : {{ comment.content|raw }}</p>
+        <p>Ecrit par : {{ comment.author.email }}</p>
+        <p>Date de publication : {{ comment.createdAt|date('d/m/Y H:i:s') }}<p>
+    {% endfor %}
+
+    <a href="{{ path('app_edit_article', { 'id': article.id }) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        Modifier
+    </a>
+    <a href="{{ path('app_delete_article', { 'id': article.id }) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+        Supprimer
+    </a>
 {% endblock %}

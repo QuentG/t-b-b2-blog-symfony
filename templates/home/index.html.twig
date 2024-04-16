@@ -21,7 +21,7 @@
                 <div class="relative">
                     <a href="{{ path('app_article', { 'id': article.id }) }}">
                         <img class="w-full"
-                            src="https://images.pexels.com/photos/196667/pexels-photo-196667.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500"
+                            src="{{ vich_uploader_asset(article) }}"
                             alt="Sunset in the mountains">
                         <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
                         </div>
@@ -32,11 +32,11 @@
                     </a>
                 </div>
                 <div class="px-6 py-4">
-                    <a href="{{ path('app_article', { 'id': article.id }) }}" class="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">Best
+                    <a href="{{ path('app_article', { 'id': article.id }) }}" class="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">
                         {{ article.title }}
                     </a>
                     <p class="text-gray-500 text-sm">
-                        {{ article.description }}
+                        {{ article.description|raw }}
                     </p>
                 </div>
                 <div class="px-6 py-4 flex flex-row items-center">
@@ -57,7 +57,6 @@
             </div>
         {% endfor %}
     </div>
-
 
     <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
         <h2>Les autres articles</h2>
@@ -80,11 +79,11 @@
                     </a>
                 </div>
                 <div class="px-6 py-4">
-                    <a href="{{ path('app_article', { 'id': article.id }) }}" class="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">Best
+                    <a href="{{ path('app_article', { 'id': article.id }) }}" class="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">
                         {{ article.title }}
                     </a>
                     <p class="text-gray-500 text-sm">
-                        {{ article.description }}
+                        {{ article.description|raw }}
                     </p>
                 </div>
                 <div class="px-6 py-4 flex flex-row items-center">

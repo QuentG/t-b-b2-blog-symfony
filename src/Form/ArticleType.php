@@ -3,13 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleType extends AbstractType
 {
@@ -21,8 +22,8 @@ class ArticleType extends AbstractType
                     'class' => 'form-group',
                 ],
             ])
-            ->add('description', TextareaType::class)
-            ->add('picture', UrlType::class)
+            ->add('description', CKEditorType::class)
+            ->add('imageFile', VichImageType::class)
             ->add('publishingDate', null, [
                 'widget' => 'single_text'
             ])
