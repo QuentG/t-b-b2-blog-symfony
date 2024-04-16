@@ -14,10 +14,14 @@
         <p>Date de publication : {{ comment.createdAt|date('d/m/Y H:i:s') }}<p>
     {% endfor %}
 
-    <a href="{{ path('app_edit_article', { 'id': article.id }) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-        Modifier
-    </a>
-    <a href="{{ path('app_delete_article', { 'id': article.id }) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-        Supprimer
-    </a>
+    {# Si on a un utilisateur connecté et qu'il est le même que celui qui a écrit l'article, alors il peut modifier / supprimer l'article #}
+    {% if app.user and app.user.email == article.author.email %}
+        <a href="{{ path('app_edit_article', { 'id': article.id }) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            Modifier
+        </a>
+
+        <a href="{{ path('app_delete_article', { 'id': article.id }) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+            Supprimer
+        </a>
+    {% endif %}
 {% endblock %}
